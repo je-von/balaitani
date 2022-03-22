@@ -18,7 +18,7 @@ class ProductController extends Controller
         $keyword = $request->keyword;
         $products = Product::where('name', 'LIKE', "%$keyword%")
             ->orWhere('description', 'LIKE', "%$keyword%")
-            ->paginate(8)->appends(['keyword', $keyword]);
+            ->paginate(8)->appends(['keyword' => $keyword]);
         return view('home', compact('products'));
     }
 }
