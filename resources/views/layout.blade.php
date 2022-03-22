@@ -15,6 +15,20 @@
     </script>
     <title>BalaiTani</title>
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+        * {
+            font-family: "Open Sans", sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-weight: bolder;
+        }
+
         .page-item.active .page-link {
             color: #ffff;
             background-color: #198754;
