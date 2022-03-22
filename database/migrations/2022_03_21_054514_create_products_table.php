@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->longText('description');
             $table->string('image');
+            $table->unsignedBigInteger('seller_id'); //seller
+            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

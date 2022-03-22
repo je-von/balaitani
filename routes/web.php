@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [ProductController::class, 'index']);
 
-Route::get('/register', [UserController::class,'register']);
-Route::post('/register', [UserController::class,'store']);
+Route::get('/register', [UserController::class, 'register']);
+Route::post('/register', [UserController::class, 'store']);
 
-Route::get('/login', [UserController::class,'login']);
-Route::post('/login', [UserController::class,'authLogin']);
+Route::get('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'authLogin']);
 
-Route::get('/logout',[UserController::class,'logout']);
+Route::get('/logout', [UserController::class, 'logout']);
