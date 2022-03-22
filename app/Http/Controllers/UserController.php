@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         return view('login');
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -43,17 +43,18 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password],$request->remember)) {
-            
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
             return redirect()->intended('/');
-        }else{
+        } else {
             return redirect('/login')->with('failed', 'Invalid Credentials');
         }
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
-        
+
         return redirect('/');
     }
 }

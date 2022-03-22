@@ -32,18 +32,19 @@
             <a href="/">
                 <img src="asset/logo-black.png" alt="BalaiTani" width="150">
             </a>
-            <form class="form-inline d-flex p-2" action="/search">
-                <input class="form-control mr-sm-2 mx-4" type="search" placeholder="Search" aria-label="Search"
-                    name="title">
+            <form class="form-inline d-flex p-2" method="GET" action="/search">
+                <input class="form-control mr-sm-2 mx-4" type="search" placeholder="Search crops..." aria-label="Search"
+                    name="keyword">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <div class="right-nav d-flex justify-content-around align-items-center">
+        <div class="right-nav d-flex justify-content-around align-items-center ">
             @if (!Auth::check())
                 <a href="/register" class="mx-2"><button type="button"
                         class="btn btn-success">Register</button></a>
                 <a href="/login" class="mx-2"><button type="button" class="btn btn-success">Login</button></a>
             @else
+                <div>Welcome, <b>{{ auth()->user()->name }}</b></div>
                 <a href="/logout" class="mx-2"><button type="button"
                         class="btn btn-danger">Logout</button></a>
             @endif
