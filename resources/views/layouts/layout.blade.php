@@ -98,6 +98,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/product/add">My Cart <i class="fa-solid fa-cart-shopping"></i></a>
+                        </li><li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
                                 href="/product/add">Sell Product <i class="fal fa-plus-circle"></i></a>
                         </li>
                         <li>
