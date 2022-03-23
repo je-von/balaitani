@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,8 @@ Route::group(['prefix' => 'product', 'middleware' => 'auth'], function () {
         Route::get('/update', [ProductController::class, 'showUpdateProductPage']);
         Route::put('/update', [ProductController::class, 'update']);
     });
+});
+
+Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
+    Route::post('/add/{product_id}', [CartController::class, 'add']);
 });

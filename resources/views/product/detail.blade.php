@@ -27,16 +27,19 @@
             </p>
             <p>{{ $product->description }}</p>
         </div>
-        <div style="width: 15%">
+        <div style="width: 20%">
             <div class="border p-3" style="border-radius:12px">
                 <h3>Rp.{{ $product->price }}</h3>
                 <p>Stock: {{ $product->stock }}</p>
-                <form action="/cart/add" method="POST">
+                <form action="/cart/add/{{ $product->id }}" method="POST">
                     @csrf
                     <div class="input-group">
                         <span class="input-group-text">Quantity</span>
                         <input type="number" class="form-control" placeholder="0" name="quantity" value="1">
                     </div>
+                    @if ($errors->has('quantity'))
+                        <p class="text-danger">{{ $errors->first('quantity') }}</p>
+                    @endif
                     <button type="submit" class="btn btn-outline-success w-100 my-3">
                         Add to Cart <i class="fal fa-cart-plus mx-1"></i>
                     </button>
