@@ -17,22 +17,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index']);
 
-Route::get('/register', [UserController::class, 'register']);
-Route::post('/register', [UserController::class, 'store']);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', [UserController::class, 'register']);
+    Route::post('/register', [UserController::class, 'store']);
 
-Route::get('/login', [UserController::class, 'login']);
-Route::post('/login', [UserController::class, 'authLogin']);
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/login', [UserController::class, 'authLogin']);
+});
+
 
 Route::get('/logout', [UserController::class, 'logout']);
 
 Route::get('/search', [ProductController::class, 'search']);
 
-Route::prefix('product')->group(function () {
+
+Route::group(['prefix' => 'product', 'middleware' => 'auth'], function () {
     Route::get('/add', [ProductController::class, 'showAddProductPage']);
     Route::post('/add', [ProductController::class, 'add']);
 
-    Route::prefix('{id}')->group(function () {
-        Route::get('/', [ProductController::class, 'detail']);
+    Route::group(['prefix' => '{id}', 'middleware' => 'seller'], function () {
+        Route::get('/', [ProductController::class, 'detail'])->withoutMiddleware(['auth', 'seller']);
         Route::delete('/delete', [ProductController::class, 'delete']);
         Route::get('/update', [ProductController::class, 'showUpdateProductPage']);
         Route::put('/update', [ProductController::class, 'update']);
