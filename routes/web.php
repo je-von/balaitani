@@ -34,5 +34,7 @@ Route::prefix('product')->group(function () {
     Route::prefix('{id}')->group(function () {
         Route::get('/', [ProductController::class, 'detail']);
         Route::delete('/delete', [ProductController::class, 'delete']);
+        Route::get('/update', [ProductController::class, 'showUpdateProductPage']);
+        Route::put('/update', [ProductController::class, 'update']);
     });
 });

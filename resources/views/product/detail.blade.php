@@ -10,7 +10,8 @@
                 <h1>{{ $product->name }}</h1>
                 @if ($product->seller == auth()->user())
                     <div class="d-flex">
-                        <a href="#" class="btn btn-outline-success mx-2"><i class="fal fa-pencil"></i></a>
+                        <a href="/product/{{ $product->id }}/update" class="btn btn-outline-success mx-2"><i
+                                class="fal fa-pencil"></i></a>
                         <form action="/product/{{ $product->id }}/delete" method="POST">
                             @csrf
                             {{ method_field('delete') }}

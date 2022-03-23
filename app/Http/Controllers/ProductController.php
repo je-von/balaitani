@@ -66,4 +66,38 @@ class ProductController extends Controller
         $product->delete();
         return redirect('/');
     }
+
+    public function showUpdateProductPage($id)
+    {
+        $product = Product::find($id);
+
+        return view('product.update', compact('product'));
+    }
+
+    public function update($id, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric|min:1000',
+            'stock' => 'required|numeric|min:1',
+            'description' => 'required',
+            // 'image' => 'required|mimes:jpg,bmp,png'
+        ]);
+        $product = Product::find($id);
+
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->description = $request->description;
+
+        if ($request->file('image') != null) {
+            $image_name = Str::uuid() . '.' . $request->file('image')->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $request->file('image'), $image_name);
+
+            $product->image = 'images/' . $image_name;
+        }
+
+        $product->save();
+        return redirect()->back()->with('success', 'Product updated successfully!');
+    }
 }
