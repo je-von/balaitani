@@ -75,7 +75,7 @@
     <nav class="d-flex justify-content-between align-items-center border-bottom navbar" style="padding:0 10%">
         <div class="left-nav d-flex align-items-center">
             <a href="/">
-                <img class="m-1" src="asset/logo-white.png" alt="BalaiTani" width="150">
+                <img class="m-1" src="{{ url('asset/logo-white.png') }}" alt="BalaiTani" width="150">
             </a>
             <form class="form-inline d-flex p-2" method="GET" action="/search">
                 <div class="input-group">
@@ -96,7 +96,14 @@
                         Welcome, <b>{{ auth()->user()->name }}</b>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/product/add">Sell Product <i class="fal fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between text-danger"
+                                href="/logout">Logout <i class="fal fa-sign-out"></i></a>
+                        </li>
                     </ul>
                 </div>
             @endif

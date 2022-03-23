@@ -9,6 +9,8 @@ class PaymentMethod extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
