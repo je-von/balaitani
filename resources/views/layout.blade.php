@@ -110,7 +110,7 @@
         </div>
     </nav>
     <div class="pt-5 content d-flex align-items-center justify-content-center">
-        <div class="w-100">
+        <div class="w-100 h-100">
             @yield('content')
         </div>
     </div>

@@ -33,8 +33,8 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
+            'price' => 'required|numeric|min:1000',
+            'stock' => 'required|numeric|min:1',
             'description' => 'required',
             'image' => 'required|mimes:jpg,bmp,png'
         ]);
@@ -52,5 +52,11 @@ class ProductController extends Controller
 
         $product->save();
         return redirect()->back()->with('success', 'Product added successfully!');
+    }
+
+    public function detail($id)
+    {
+        $product = Product::find($id);
+        return view('product.detail', compact('product'));
     }
 }

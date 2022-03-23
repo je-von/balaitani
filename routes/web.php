@@ -30,4 +30,6 @@ Route::get('/search', [ProductController::class, 'search']);
 Route::prefix('product')->group(function () {
     Route::get('/add', [ProductController::class, 'showAddProductPage']);
     Route::post('/add', [ProductController::class, 'add']);
+
+    Route::get('/{id}', [ProductController::class, 'detail']);
 });
