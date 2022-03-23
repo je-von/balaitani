@@ -31,5 +31,8 @@ Route::prefix('product')->group(function () {
     Route::get('/add', [ProductController::class, 'showAddProductPage']);
     Route::post('/add', [ProductController::class, 'add']);
 
-    Route::get('/{id}', [ProductController::class, 'detail']);
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', [ProductController::class, 'detail']);
+        Route::delete('/delete', [ProductController::class, 'delete']);
+    });
 });

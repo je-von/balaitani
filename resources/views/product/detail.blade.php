@@ -6,8 +6,24 @@
                 style="border-radius:12px" width="300">
         </div>
         <div class="w-50">
-            <h1>{{ $product->name }}</h1>
-            <p>Seller: <b class="text-success">{{ $product->seller->name }}</b></p>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>{{ $product->name }}</h1>
+                @if ($product->seller == auth()->user())
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-outline-success mx-2"><i class="fal fa-pencil"></i></a>
+                        <form action="/product/{{ $product->id }}/delete" method="POST">
+                            @csrf
+                            {{ method_field('delete') }}
+                            <button type="submit" class="btn btn-outline-danger"><i class="fal fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                @endif
+            </div>
+            <p>Seller: <b class="text-success">{{ $product->seller->name }}</b>
+                @if ($product->seller == auth()->user())
+                    (You)
+                @endif
+            </p>
             <p>{{ $product->description }}</p>
         </div>
         <div style="width: 15%">
