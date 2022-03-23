@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('content')
     <div class="d-flex justify-content-center flex-wrap p-3">
         @foreach ($products as $p)

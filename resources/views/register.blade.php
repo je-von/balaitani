@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('content')
 <div class="form-div d-flex align-items-center flex-column m-4">
     <h1>Register</h1>
