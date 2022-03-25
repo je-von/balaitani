@@ -70,7 +70,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="text-end fw-bold">Net Total</td>
-                    <td class="text-end pe-4">Rp {{ number_format($total+$detail->first()->shipping->price, 2)  }}</td>
+                    <td class="text-end pe-4 fw-bold">Rp {{ number_format($total+$detail->first()->shipping->price, 2)  }}</td>
                 </tr>
             </tfoot>
         </table>
