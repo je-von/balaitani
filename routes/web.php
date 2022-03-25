@@ -45,5 +45,8 @@ Route::group(['prefix' => 'product', 'middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
+
+    Route::get('/', [CartController::class, 'index']);
     Route::post('/add/{product_id}', [CartController::class, 'add']);
+    Route::delete('/delete/{product_id}', [CartController::class, 'delete']);
 });
