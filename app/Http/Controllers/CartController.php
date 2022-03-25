@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {   
-        $cart = Cart::select('id', 'name', 'price', 'quantity', 'image', Cart::raw('sum(quantity * price) AS total_price'))->join('products', 'products.id', '=', 'carts.product_id')->where('user_id', auth()->user()->id)->groupBy('id','name', 'price', 'quantity', 'image')->get();
+        $cart = Cart::where('user_id', auth()->user()->id)->get();
 
         return view('cart', ['cart' => $cart]);
     }

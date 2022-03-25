@@ -7,21 +7,24 @@
     <div class="d-flex gap-5">
         @if (count($cart) > 0)
         <ul class="list-group" style="width: 72.5%">
+            @php
+                $total = 0;
+            @endphp
             @foreach ($cart as $item)
                 <li class="list-group-item shadow rounded d-flex align-items-center w-100 p-4 gap-4 mb-3">
                     {{-- <input class="form-check-input" style="width: 24px;height: 24px" type="checkbox" value="" aria-label="..."> --}}
                     <div class="d-flex gap-5 w-100" style="/* width:calc(100% - 24px); */">
                         <div class="" style="width: 15%";>
-                            <img src="{{ Storage::url($item->image) }}" alt="Product Image" class="w-100" 
+                            <img src="{{ Storage::url($item->product->image) }}" alt="Product Image" class="w-100" 
                                 style="border-radius:12px;">
                         </div>
                         <div class="" style="width: 85%">
-                            <h5 class="fw-normal">{{ $item->name }}</h5>
-                            <p class="fw-bold">Rp {{ number_format($item->price, 2) }}</p>
+                            <h5 class="fw-normal">{{ $item->product->name }}</h5>
+                            <p class="fw-bold">Rp {{ number_format($item->product->price, 2) }}</p>
                             <div class="d-flex justify-content-between">
-                                <a href="/product/{{ $item->id }}" class="btn btn-success">Details</a>
+                                <a href="/product/{{ $item->product->id }}" class="btn btn-success">Details</a>
                                 <div class="d-flex gap-3">
-                                    <form action="/cart/delete/{{$item->id}}" method="POST">
+                                    <form action="/cart/delete/{{ $item->product_id }}" method="POST">
                                         @csrf
                                         {{ method_field('delete') }}
                                         
@@ -36,27 +39,27 @@
                         </div>
                     </div>
                 </li>
+
+                @php
+                    $total += $item->product->price * $item->quantity;
+                @endphp
             @endforeach
         </ul>
         <div class="card shadow p-4" style="width: 27.5%; height: fit-content;">
-            <h5>Shopping summary</h5>
+            <h5>Summary</h5>
             <ul class="my-3 p-0 d-flex flex-column gap-2">
                 <li class="d-flex justify-content-between">
-                    <span>Total price</span>
-                    <span>Rp {{ number_format($cart->sum('total_price'), 2) }}</span>
+                    <span>Subtotal</span>
+                    <span>Rp {{ number_format($total, 2) }}</span>
                 </li>
                 <li class="d-flex justify-content-between">
-                    <span>Total items</span>
-                    <span>{{ $cart->count() }} {{ $cart->count() > 1 ? 'items' : 'item'}}</span>
-                </li>
-                <li class="d-flex justify-content-between">
-                    <span>Tax</span>
-                    <span>Rp {{ number_format($cart->sum('price') / 10, 2) }}</span>
+                    <span>Discount</span>
+                    <span>-Rp 0.00</span>
                 </li>
                 <hr class="my-2">
                 <li class="d-flex justify-content-between">
-                    <span>Grand total</span>
-                    <span>Rp {{ number_format($cart->sum('price') + $cart->sum('price')/10) }}</span>
+                    <span>Net total</span>
+                    <span>Rp {{ number_format($total,2) }}</span>
                 </li>
             </ul>
             
