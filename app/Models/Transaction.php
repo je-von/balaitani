@@ -9,6 +9,9 @@ class Transaction extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $dates = [
+        'transaction_date'
+    ];
 
     public function user()
     {

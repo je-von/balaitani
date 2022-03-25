@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,4 +50,10 @@ Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
     Route::get('/', [CartController::class, 'index']);
     Route::post('/add/{product_id}', [CartController::class, 'add']);
     Route::delete('/delete/{product_id}', [CartController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'transactions', 'middleware' => 'auth'], function () {
+
+    Route::get('/', [TransactionController::class, 'index']);
+    Route::get('/{id}', [TransactionController::class, 'show']);
 });

@@ -68,6 +68,11 @@
             min-height: 100vh;
         }
 
+        tfoot > tr > td{
+            padding: 0.25rem!important;
+            border: 0;
+        }
+
     </style>
 </head>
 
@@ -99,7 +104,12 @@
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
                                 href="/cart">My Cart <i class="fal fa-shopping-cart"></i></a>
-                        </li><li>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/transactions">Transactions <i class="fal fa-file-invoice-dollar"></i></a>
+                        </li>
+                        <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
                                 href="/product/add">Sell Product <i class="fal fa-plus-circle"></i></a>
                         </li>
