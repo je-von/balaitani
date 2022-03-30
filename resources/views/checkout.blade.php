@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
+@if (count($cart) > 0)
 <div class="container container-fluid py-5 content">
     <h2 class="mb-5">Billing details</h2>
 
@@ -165,4 +166,11 @@
     }
 </script>
 
+@else
+    <div class="container container-fluid content pt-5">
+        <div class="alert alert-danger w-100 " role="alert">
+        Oops, you cannot check out unless your cart is not empty! Back to <a href="/" class="underline" style="color: inherit;">Main Menu</a>?
+        </div>
+    </div>
+@endif
 @endsection
