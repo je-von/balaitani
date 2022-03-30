@@ -53,17 +53,21 @@
                     <span>Rp {{ number_format($total, 2) }}</span>
                 </li>
                 <li class="d-flex justify-content-between">
+                    <span>Tax</span>
+                    <span>Rp {{ number_format(0.1*$total, 2) }}</span>
+                </li>
+                <li class="d-flex justify-content-between">
                     <span>Discount</span>
                     <span>-Rp 0.00</span>
                 </li>
                 <hr class="my-2">
                 <li class="d-flex justify-content-between">
-                    <span>Net total</span>
-                    <span>Rp {{ number_format($total,2) }}</span>
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold">Rp {{ number_format(1.1*$total,2) }}</span>
                 </li>
             </ul>
             
-            <button class="btn btn-success mt-2"><i class="fas fa-cash-register me-2"></i>Checkout</button>
+            <a href="/checkout" class="btn btn-success mt-2 w-100"><i class="fas fa-cash-register me-2"></i>Check out</a>
         </div>
         @else
             <div class="alert alert-danger w-100" role="alert">

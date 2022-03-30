@@ -2,79 +2,167 @@
 @section('content')
 
 <div class="container container-fluid py-5 content">
-    <h2 class="mb-5">
-        <a href="/transactions" class=""><i class="fal fa-arrow-left fs-4 text-dark me-2"></i></a> 
-        Details
-    </h2>
+    <h2 class="mb-5">Billing details</h2>
 
-    <div class="shadow rounded p-5">
-        <ul class="d-flex flex-column gap-2 w-50 px-0 pb-4">
-            <li class="d-flex">
-                <span class="w-50 fw-bold">Date of transaction</span>
-                <span >{{ $detail->first()->transaction_date->format('F d, Y') }}</span>
-            </li>
-            <li class="d-flex">
-                <span class="w-50 fw-bold">Status</span>
-                <span class={{ $detail->first()->status == 'success' ? 'text-success' : 'text-danger' }}>{{ ucwords($detail->first()->status) }}</span>
-            </li>
-            <li class="d-flex">
-                <span class="w-50 fw-bold">Shipping</span>
-                <span>{{ $detail->first()->shipping->name }}</span>
-            </li>
-            <li class="d-flex">
-                <span class="w-50 fw-bold">Payment method</span>
-                <span>{{ $detail->first()->payment_method->name }}</span>
-            </li>
-        </ul>
-        <table class="table table-hover align-middle border">
-            <thead class="table-secondary">
-              <tr>
-                <th scope="col" class="border-bottom-0 ps-4">Product</th>
-                <th scope="col" class="border-bottom-0 text-end ps-3">Price</th>
-                <th scope="col" class="border-bottom-0 text-end ps-3">Quantity</th>
-                <th scope="col" class="border-bottom-0 text-end ps-3 pe-4">Total Price</th>
-              </tr>
-            </thead>
-            <tbody>
+    <form class="d-flex gap-5 justify-content-between my-3" action="/checkout" onsubmit="return validate()" method="post">
+        @csrf
+        <div style="width: 66.66%">
+            <div class="card p-4 shadow rounded-lg mb-5">
+                <h5 class="fw-medium m-0">Personal information</h4>
+                <hr>
+                <div class="d-flex justify-content-between gap-4 mt-2">
+                    <div class="mb-3 w-50">
+                        <label for="exampleFormControlInput1" class="form-label">Full name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{ $user->first()->name }}" readonly>
+                    </div>
+                    <div class="mb-3 w-50">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="{{ $user->first()->email }}" readonly>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{ $user->first()->address }}" readonly>
+                </div>
+            </div>
+            <div class="card p-4 shadow rounded-lg mb-5">
+                <h5 class="fw-medium m-0">Shipping details</h4>
+                <hr>
+                <div class="mb-3">
+                    <label for="shipping_id" class="form-label">Shipping service</label>
+                    <select class="form-select" aria-label="Default select example"  id="shippingServiceSelect" name="shipping_id">
+                        <option id="shippingServiceOptionUnselected" value="0" data-price="0" selected>Choose shipping service</option>
+                        @foreach ($shippings as $s)
+                            <option id="shippingServiceOption" value="{{ $s->id }}" data-price="{{ $s->price }}">{{ $s->name }} (Rp {{ number_format($s->price, 2) }})</option>
+                        @endforeach
+                    </select>
+                    <p id="shippingServiceAlert" class="text-danger mt-2 d-none" role="alert">
+                        <i class="fas fa-exclamation-circle me-1"></i>
+                        Please choose your shipping service
+                    </p>
+                </div>
+            </div>
+            <div class="card p-4 shadow rounded-lg mb-5">
+                <h5 class="fw-medium m-0">Payment</h4>
+                <hr>
+                <div class="mb-3">
+                    <label for="payment_method_id" class="form-label">Payment method</label>
+                    <select class="form-select" aria-label="Default select example" name="payment_method_id" id="paymentMethodSelect">
+                        <option value="0" selected>Choose payment method</option>
+                        @foreach ($payment_methods as $pm)
+                            <option value="{{ $pm->id }}">{{ $pm->name }}</option>
+                        @endforeach
+                    </select>
+                    <p id="paymentMethodAlert" class="text-danger mt-2 d-none" role="alert">
+                        <i class="fas fa-exclamation-circle me-1"></i>
+                        Please choose your payment method
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card p-4 shadow rounded-lg"  style="width: 33.33%; height: fit-content;">
+            <h5 class="fw-medium m-0">Order summary</h5>
+            <hr>
+            <ul class="list-unstyled mb-0">
                 @php
                     $total = 0;
                 @endphp
-
-                @foreach ($detail->first()->transaction_details as $d)
-                @php
-                    $total += $d->product->price * $d->quantity;
-                @endphp
-                <tr>
-                    <th scope="row" class="ps-4 pe-3 d-flex align-items-center gap-4 w-fit-content">
-                            <img src="{{ Storage::url($d->product->image) }}" alt="Product Image" width="100" class="my-2" style="border-radius:12px;">
-                        <p class="mb-0">{{ $d->product->name }}</p>
-                    </th>
-                    <td class="text-end ps-3">Rp {{ number_format($d->product->price, 2) }}</td>
-                    <td class="text-end ps-3">{{ $d->quantity }}</td>
-                    <td class="text-end ps-3 pe-4">Rp {{ number_format($d->product->price * $d->quantity, 2) }}</td>
-                </tr>
+                @foreach ($cart as $item)
+                    <li class="">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex gap-3 mb-4">
+                                <div class="" style="width: 16%";>
+                                    <img src="{{ Storage::url($item->product->image) }}" alt="Product Image" class="w-100"
+                                        style="border-radius:12px;">
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-3">{{ $item->product->name }}</h6>
+                                    <p style="line-height: 0">Rp {{ number_format($item->product->price * $item->quantity, 2) }}</p>
+                                </div>
+                            </div>
+                            <p>{{ $item->quantity }}x</p>
+                        </div>
+                    </li>
+                    @php
+                        $total +=  $item->product->price * $item->quantity;
+                    @endphp
                 @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" class="text-end ps-4 fw-bold">Subtotal</td>
-                    <td class="text-end pe-4">Rp {{ number_format($total, 2) }}</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-end fw-bold">Shipping Fee</td>
-                    <td class="text-end pe-4">Rp {{ number_format($detail->first()->shipping->price, 2) }}</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-end fw-bold">Discount</td>
-                    <td class="text-end pe-4">-Rp 0.00</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-end fw-bold">Net Total</td>
-                    <td class="text-end pe-4 fw-bold">Rp {{ number_format($total+$detail->first()->shipping->price, 2)  }}</td>
-                </tr>
-            </tfoot>
-        </table>
+            </ul>
+            <hr class="my-0">
+            <ul class="my-3 p-0 d-flex flex-column gap-1">
+                <li class="d-flex justify-content-between">
+                    <span>Subtotal</span>
+                    <span id="subtotal" data-value="{{ $total }}">Rp {{ number_format($total, 2) }}</span>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <span>Tax</span>
+                    <span id="tax"></span>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <span>Discount</span>
+                    <span>-Rp 0.00</span>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <span>Shipping fee</span>
+                    <span id="shippingFee"></span>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold" id="total"></span>
+                </li>
+                <button type="submit" class="btn btn-success mt-4"><i class="fas fa-money-check me-2"></i>Pay Now</button>
+            </ul>
+        </div>
     </div>
-    
 </div>
+
+<script>
+    const shippingServiceSelect = document.getElementById("shippingServiceSelect")
+    const paymentMethodSelect = document.getElementById('paymentMethodSelect')
+
+    function isValid(select, alertBox){
+        alertBox.classList.add('d-none')
+
+        if (select.value == 0){
+            select.focus()
+            alertBox.classList.remove('d-none')
+
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function validate(){
+        if (isValid(shippingServiceSelect, shippingServiceAlert) && isValid(paymentMethodSelect, paymentMethodAlert)){
+            return true;
+        }
+        
+        return false;
+    }
+
+    const formatPrice = (price)=> price.toLocaleString('id', { style: 'currency', currency: 'IDR' })
+
+    const shippingFeeSpan = document.getElementById('shippingFee')
+    const subtotalSpan = document.getElementById('subtotal');
+    const taxSpan = document.getElementById('tax');
+    const totalSpan = document.getElementById('total')
+
+    shippingFeeSpan.innerText = 'Rp 0.00'
+
+    taxSpan.innerText = formatPrice(0.1 * subtotalSpan.dataset.value)
+    totalSpan.innerText = formatPrice(1.1 * subtotalSpan.dataset.value + 0)
+
+    shippingServiceSelect.onchange = (e)=>{
+        e.preventDefault();
+        var idx = shippingServiceSelect.selectedIndex
+
+        var a = formatPrice(shippingServiceSelect.options[idx].dataset.price)
+        shippingFeeSpan.innerText = formatPrice(parseInt(shippingServiceSelect.options[idx].dataset.price))    
+        
+        totalSpan.innerText = formatPrice(1.1 * subtotalSpan.dataset.value + parseInt(shippingServiceSelect.options[idx].dataset.price))
+    }
+</script>
+
 @endsection

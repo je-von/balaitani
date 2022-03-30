@@ -73,6 +73,10 @@
             border: 0;
         }
 
+        .fw-medium{
+            font-weight: 600;
+        }
+
     </style>
 </head>
 

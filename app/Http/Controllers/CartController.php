@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\User;
+use App\Models\PaymentMethod;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -37,5 +40,14 @@ class CartController extends Controller
         $cart = Cart::where('product_id', '=', $product_id)->where('user_id', '=', auth()->user()->id)->first();
         $cart->delete();
         return redirect('/cart');
+    }
+
+    public function checkout(){
+        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        $user = User::where('id', auth()->user()->id)->get();
+        $payment_methods = PaymentMethod::get();
+        $shippings = Shipping::get();
+
+        return view('checkout', ['cart' => $cart, 'user' => $user, 'payment_methods' => $payment_methods, 'shippings' => $shippings]);
     }
 }

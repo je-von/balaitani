@@ -55,5 +55,14 @@ Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'transactions', 'middleware' => 'auth'], function () {
 
     Route::get('/', [TransactionController::class, 'index']);
+    Route::post('/add', [TransactionController::class, 'add']);
     Route::get('/{id}', [TransactionController::class, 'show']);
 });
+
+Route::group(['prefix' => 'checkout', 'middleware' => 'auth'], function () {
+
+    Route::get('/', [CartController::class, 'checkout']);
+    Route::post('/', [TransactionController::class, 'add']);
+});
+
+

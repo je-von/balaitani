@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success mt-5 container container-fluid">
+        {{ Session::get('success') }}
+    </div>
+@endif
+
     <div class="d-flex justify-content-center flex-wrap p-3">
         @foreach ($products as $p)
             <div class="card m-3 border-0 shadow" style="width: 18rem;border-radius: 15px;">
