@@ -1,6 +1,12 @@
 @extends('layouts.layout')
 @section('content')
 
+@if (session('success'))
+    <div class="alert alert-success mt-5 container container-fluid">
+        {{ Session::get('success') }}
+    </div>
+@endif
+
 <div class="container container-fluid py-5 content">
     <h2 class="mb-5">
         <a href="/transactions" class=""><i class="fal fa-arrow-left fs-4 text-dark me-2"></i></a> 

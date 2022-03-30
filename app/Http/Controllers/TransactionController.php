@@ -43,6 +43,6 @@ class TransactionController extends Controller
             $transactionDetail->save();
             $item->delete();
         }
-        return redirect('/')->with('success', 'Transaction success!');
+        return redirect('/transactions/'.$transaction->id)->with('success', 'Transaction success!');
     }
 }
