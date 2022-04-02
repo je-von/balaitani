@@ -68,12 +68,12 @@
             min-height: 100vh;
         }
 
-        tfoot > tr > td{
-            padding: 0.25rem!important;
+        tfoot>tr>td {
+            padding: 0.25rem !important;
             border: 0;
         }
 
-        .fw-medium{
+        .fw-medium {
             font-weight: 600;
         }
 
@@ -106,8 +106,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                href="/cart">My Cart <i class="fal fa-shopping-cart"></i></a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="/cart">My
+                                Cart <i class="fal fa-shopping-cart"></i></a>
                         </li>
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
