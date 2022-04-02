@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
                 'description' => $faker->paragraph(5),
                 'seller_id' => $faker->numberBetween(2, 4),
                 // 'image' => 'https://cf.shopee.co.id/file/4d58894ade24ab45f868b1e819abd2b1',
-                'image' => 'images/4d58894ade24ab45f868b1e819abd2b1.jpg'
+                'image' => 'images/dummy.jpg'
                 // 'image' => 'images/' . $faker->image('public/storage/images', 640, 480, 'hasil tani', false),
             ]);
         }
