@@ -1,20 +1,5 @@
 @extends('layouts.layout')
 @section('content')
-    <style>
-        .banner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iJpChCw.ofIg/v1/1200x-1.jpg');
-            background-size: cover;
-            filter: grayscale(100%) contrast(0.4) blur(2px) brightness(0.5);
-            background-position-y: center
-        }
-
-    </style>
     <div class="banner position-relative overflow-hidden text-center d-flex flex-column justify-content-center align-items-center"
         style="height: 60vh;">
         <h1 class="text-light display-2 position-relative">Welcome to BalaiTani !</h1>

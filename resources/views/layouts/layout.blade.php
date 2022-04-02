@@ -77,6 +77,27 @@
             font-weight: 600;
         }
 
+        .banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iJpChCw.ofIg/v1/1200x-1.jpg');
+            background-size: cover;
+            filter: grayscale(100%) contrast(0.4) blur(2px) brightness(0.5);
+            background-position-y: center
+        }
+
+        @media screen and (max-width: 840px) {
+            .details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+        }
+
     </style>
 </head>
 

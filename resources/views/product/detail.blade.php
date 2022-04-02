@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="d-flex justify-content-around content py-5">
+    <div class="details d-flex justify-content-around content py-5">
         <div>
             <img src="{{ Storage::url($product->image) }}" alt="Product Image" class="border"
                 style="border-radius:12px" width="300">
@@ -27,7 +27,7 @@
             </p>
             <p>{{ $product->description }}</p>
         </div>
-        <div style="width: 20%">
+        <div class="action" style="min-width: 20%">
             <div class="border p-3" style="border-radius:12px">
                 <h3>Rp.{{ $product->price }}</h3>
                 <p>Stock: {{ $product->stock }}</p>

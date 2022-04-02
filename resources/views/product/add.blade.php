@@ -2,7 +2,7 @@
 @section('content')
     <div class="form-div d-flex align-items-center flex-column m-4">
         <h1>Add Product</h1>
-        <form style="width : 30%;" class="bg-light p-4 rounded m-2" method="post" enctype="multipart/form-data">
+        <form style="min-width : 30%;" class="bg-light p-4 rounded m-2" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group my-2">
                 <label for="name">Name</label>
