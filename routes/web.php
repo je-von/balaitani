@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index']);
 
+Route::get('/about-us', function () {
+    return view('about');
+});
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/register', [UserController::class, 'register']);
     Route::post('/register', [UserController::class, 'store']);

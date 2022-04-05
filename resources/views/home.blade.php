@@ -4,7 +4,7 @@
         style="height: 60vh;">
         <h1 class="text-light display-2 position-relative">Welcome to BalaiTani !</h1>
         <p class="text-light position-relative"><i>No. 1 App to support Indonesian local farmers</i></p>
-        <a class="btn btn-outline-light position-relative" href="#">About Us</a>
+        <a class="btn btn-outline-light position-relative" href="/about-us">About Us</a>
     </div>
     <div class="d-flex justify-content-center flex-wrap p-3">
         @foreach ($products as $p)
