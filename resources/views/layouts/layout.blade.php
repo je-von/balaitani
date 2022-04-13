@@ -134,10 +134,26 @@
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
                                 href="/transactions">Transactions <i class="fal fa-file-invoice-dollar"></i></a>
                         </li>
+                        @if (auth()->user()->role == "user")
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/register-seller/{{auth()->user()->id}}">Register Seller <i class="fal fa-plus-circle"></i></a>
+                        </li>
+                        @elseif (auth()->user()->role == "seller")
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
                                 href="/product/add">Sell Product <i class="fal fa-plus-circle"></i></a>
                         </li>
+                        @elseif (auth()->user()->role == "admin")
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/verify-seller">Verify Seller <i class="fal fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                href="/verify-transaction">Verify Transaction <i class="fal fa-plus-circle"></i></a>
+                        </li>
+                        @endif
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-between text-danger"
                                 href="/logout">Logout <i class="fal fa-sign-out"></i></a>

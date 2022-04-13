@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('shop_name')->nullable();
+            $table->string('shop_address')->nullable();
             $table->longText('address');
             $table->string('role')->default('user');
         });

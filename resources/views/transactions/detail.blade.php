@@ -8,7 +8,7 @@
 
     <div class="container container-fluid py-5 content">
         <h2 class="mb-5">
-            <a href="/transactions" class=""><i class="fal fa-arrow-left fs-4 text-dark me-2"></i></a>
+            <a href="@if(auth()->user()->role == 'admin')/verify-transaction @else /transactions @endif" class=""><i class="fal fa-arrow-left fs-4 text-dark me-2"></i></a>
             Details
         </h2>
 

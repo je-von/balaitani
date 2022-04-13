@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -32,15 +33,28 @@ Route::middleware(['guest'])->group(function () {
 });
 
 
+Route::get('/register-seller/{userId}', [UserController::class, 'registerSeller']);
+Route::post('/register-seller/{userId}', [UserController::class, 'storeSeller']);
+
+
+Route::get('/verify-seller', [AdminController::class, 'showSeller']);
+Route::post('/acceptSeller/{id}', [AdminController::class, 'acceptSeller']);
+Route::post('/declineSeller/{id}', [AdminController::class, 'declineSeller']);
+
+Route::get('/verify-transaction', [AdminController::class, 'showTransaction']);
+Route::post('/acceptTransaction/{id}', [AdminController::class, 'acceptTransaction']);
+Route::post('/declineTransaction/{id}', [AdminController::class, 'declineTransaction']);
+
 Route::get('/logout', [UserController::class, 'logout']);
 
+
 Route::get('/search', [ProductController::class, 'search']);
+
 
 
 Route::group(['prefix' => 'product', 'middleware' => 'auth'], function () {
     Route::get('/add', [ProductController::class, 'showAddProductPage']);
     Route::post('/add', [ProductController::class, 'add']);
-
     Route::group(['prefix' => '{id}', 'middleware' => 'seller'], function () {
         Route::get('/', [ProductController::class, 'detail'])->withoutMiddleware(['auth', 'seller']);
         Route::delete('/delete', [ProductController::class, 'delete']);
