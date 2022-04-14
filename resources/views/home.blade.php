@@ -13,7 +13,7 @@
                     src="{{ Storage::url($p->image) }}" alt="Product Image">
                 <div class="card-body">
                     <h5 class="card-title">{{ $p->name }}</h5>
-                    <i class="card-subtitle mb-2 text-success">{{ $p->seller->name }} </i>
+                    <i class="card-subtitle mb-2 text-success">{{ $p->seller->shop_name }} </i>
                     <p class="card-text text-justify w-100" style="height: 50px;overflow: hidden;text-overflow: ellipsis;">
                         {{ $p->description }}
                     </p>

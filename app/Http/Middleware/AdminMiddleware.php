@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Product;
 use Closure;
 use Illuminate\Http\Request;
 
-class SellerMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,12 +16,9 @@ class SellerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = $request->route('id');
-        $product = Product::find($id);
-        if (!auth()->check() || $product == null || $product->seller != auth()->user()) {
+        if (!auth()->check() || auth()->user()->role != 'admin') {
             return abort(401);
         }
-
         return $next($request);
     }
 }

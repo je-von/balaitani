@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function registerSeller()
     {
-        return view('registerSeller');
+        return view('seller.register');
     }
 
     public function login()
@@ -23,8 +23,9 @@ class UserController extends Controller
         return view('login');
     }
 
-    public function storeSeller($id, Request $request)
+    public function storeSeller(Request $request)
     {
+        $id = auth()->user()->id;
         $validated = $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -34,7 +35,7 @@ class UserController extends Controller
         $user->shop_address = $request->address;
         $user->role = "pending";
         $user->save();
-        return redirect('/register-seller/$id')->with('regist', 'Success register as seller, please wait until verification success');
+        return redirect('/')->with('regist', 'Success register as seller, please wait until verification success');
     }
 
     public function store(Request $request)

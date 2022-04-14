@@ -11,7 +11,7 @@ class AdminController extends Controller
     public function showSeller()
     {
         $users = User::where('role', '=', 'pending')->get();
-        return view('showSeller', compact('users'));
+        return view('seller.show', compact('users'));
     }
 
     public function acceptSeller($id)
@@ -49,8 +49,6 @@ class AdminController extends Controller
     public function showTransaction()
     {
         $transactions = Transaction::where('status', '=', 'pending')->get();
-        return view('showTransaction', compact('transactions'));
+        return view('transactions.verify', compact('transactions'));
     }
-
-
 }

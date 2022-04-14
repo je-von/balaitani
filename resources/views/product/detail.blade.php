@@ -20,7 +20,7 @@
                     </div>
                 @endif
             </div>
-            <p>Seller: <b class="text-success">{{ $product->seller->name }}</b>
+            <p>Seller: <b class="text-success">{{ $product->seller->shop_name }}</b>
                 @if ($product->seller == auth()->user())
                     (You)
                 @endif
