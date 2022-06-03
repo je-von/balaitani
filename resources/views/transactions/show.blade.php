@@ -23,6 +23,9 @@
                 <td> <a href="/transactions/{{ $transaction->id }}" class="btn btn-outline-success btn-sm">Details</a> </td>
             </tr>
             @endforeach
+            @if (count($transactions) == 0)
+              <td class="text-center py-4" colspan="5">There are no transactions.</td>
+            @endif
         </tbody>
       </table>
 </div>
