@@ -16,7 +16,7 @@ class TransactionController extends Controller
     }
 
     public function show($id){
-        $detail = Transaction::where('id', '=', auth()->user()->id)->where('id', '=', $id)->get();
+        $detail = Transaction::where('user_id', '=', auth()->user()->id)->where('id', '=', $id)->get();
         return view('transactions.detail', ['detail' => $detail]);
     }
 
